@@ -1,0 +1,13 @@
+.m-auto a{
+  margin: 0 0.5em;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container a, .container .full-height {
+  align-self: center;
+}
+
