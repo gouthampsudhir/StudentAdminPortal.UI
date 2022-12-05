@@ -1,9 +1,8 @@
-.m-bt {
-  margin-bottom: 1em;
-}
-
-
 /* mat-mdc-form-field is changed to allow filter to occupy 100% width */
 .mat-mdc-form-field {
   display: block;
+}
+
+.m-bt {
+  margin-bottom: 1em;
 }
