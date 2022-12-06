@@ -18,8 +18,8 @@ export class StudentService {
     return this.httpClient.get<Student[]>(this.baseApiUrl + '/students');
   }
 
-  getStudent(studentID: string): Observable<Student> {
-    return this.httpClient.get<Student>(this.baseApiUrl + '/students/' + studentID);
+  getStudent(studentId: string): Observable<Student> {
+    return this.httpClient.get<Student>(this.baseApiUrl + '/students/' + studentId);
   }
 
   updateStudent(studentId: string, studentRequest: Student): Observable<Student> {
@@ -35,5 +35,9 @@ export class StudentService {
     }
 
     return this.httpClient.put<Student>(this.baseApiUrl + '/students/' + studentId, updateStudentDetails);
+  }
+
+  deleteStudent(studentId: string): Observable<Student> {
+    return this.httpClient.delete<Student>(this.baseApiUrl + '/students/' + studentId);
   }
 }
