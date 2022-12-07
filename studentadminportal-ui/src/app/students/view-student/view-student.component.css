@@ -10,3 +10,7 @@ mat-hint {
   color: #939090;
   font-size:xx-small;
 }
+
+.add-space-btm {
+  height: 2rem;
+}

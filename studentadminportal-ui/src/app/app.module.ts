@@ -99,7 +99,7 @@ import { ViewStudentComponent } from './students/view-student/view-student.compo
     MatSortModule,
     MatTableModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -4,11 +4,18 @@
 
 <div class="container">
 
-  <div>
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="filterStudents()" [(ngModel)]="filterString" placeholder="Enter Student Name" #input>
-    </mat-form-field>
+  <div class="row">
+    <div class="col-xs-10">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="filterStudents()" [(ngModel)]="filterString" placeholder="Enter Student Name" #input>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-2">
+      <a routerLink="/students/add" color="accent" mat-raised-button class="add-btn">
+        Add<mat-icon>chevron_right</mat-icon>
+      </a>
+    </div>
   </div>
 
   <div class="mat-elevation-z8">
