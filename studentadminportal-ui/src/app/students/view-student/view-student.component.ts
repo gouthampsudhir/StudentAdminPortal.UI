@@ -40,6 +40,8 @@ export class ViewStudentComponent implements OnInit{
 
   genderList: Gender[] = [];
 
+  displayProfileImageUrl: string = '';
+
   constructor(private readonly studentService: StudentService,
     private readonly route: ActivatedRoute,
     private readonly genderService: GendersService,
@@ -50,26 +52,31 @@ export class ViewStudentComponent implements OnInit{
     this.route.paramMap.subscribe(
       (params) => {
         this.studentId = params.get('id');
-
+        //check if studentId is defined
         if(this.studentId) {
-          if(this.studentId?.toLowerCase() === 'add') {
+          //check if studentId == add
+          if(this.studentId.toLowerCase() === 'add') {
+            //studentId is add i.e. new student
             this.isNewStudent = true;
             this.header = 'Add New Student';
+            //setting profile image
+            this.setImage();
           } else {
+            //studentId not add i.e. existing student
             this.isNewStudent = false;
             this.header = 'Edit Student';
-            if(this.studentId) {
-              this.studentService.getStudent(this.studentId).subscribe({
-                next: (successResponse) => {
-                  this.student = successResponse;
-                },
-                error: (errorResponse) => {
-                  console.log(errorResponse);
-                }
-              });
-            }
+            this.studentService.getStudent(this.studentId).subscribe({
+              next: (successResponse) => {
+                this.student = successResponse;
+                //setting profile image
+                this.setImage();
+              },
+              error: (errorResponse) => {
+                console.log(errorResponse);
+              }
+            });
           }
-
+          //getting genderList for the dropdown
           this.genderService.getGenders().subscribe({
             next: (successResponse) => {
               this.genderList = successResponse;
@@ -139,5 +146,33 @@ export class ViewStudentComponent implements OnInit{
         console.log(errorResponse);
       }
     });
+  }
+
+  onUploadImage(event: any): void {
+    if(this.studentId) {
+      const file: File = event.target.files[0];
+      this.studentService.uploadImage(this.studentId, file)
+      .subscribe({
+        next: (successResponse) => {
+          this.student.profileImageUrl = successResponse;
+          this.setImage();
+          this.snackbar.open('Profile Image Added!', undefined, {
+            duration: 1500
+          });
+        },
+        error: (errorResponse) => {
+          console.log(errorResponse);
+        }
+      });
+    }
+  }
+
+  private setImage(): void {
+    if(this.student.profileImageUrl) {
+      //fetch
+      this.displayProfileImageUrl = this.studentService.getServerRelativePath(this.student.profileImageUrl);
+    } else {
+      this.displayProfileImageUrl = '/assets/images/DefaultProfileImage.jpg';
+    }
   }
 }

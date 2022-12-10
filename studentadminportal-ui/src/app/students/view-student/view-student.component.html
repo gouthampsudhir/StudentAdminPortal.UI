@@ -1,5 +1,5 @@
 <mat-toolbar class="m-bt">
-  <span>View Student</span>
+  <span>{{header}}</span>
 </mat-toolbar>
 
 <div class="container">
@@ -94,6 +94,13 @@
     </div>
     <div class="col-xs-6">
       <!--Profile Image-->
+      <div class="img-box">
+        <div class="img-container">
+          <img [src]="displayProfileImageUrl" alt="Profile Image">
+          <input type="file" hidden #fileInput (change)="onUploadImage($event)">
+          <button mat-raised-button (click)="fileInput.click()" color="accent">Upload Image</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
